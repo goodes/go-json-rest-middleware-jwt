@@ -4,9 +4,10 @@ import (
 	"testing"
 	"time"
 
+	jwt "github.com/dgrijalva/jwt-go"
+
 	"github.com/ant0ine/go-json-rest/rest"
 	"github.com/ant0ine/go-json-rest/rest/test"
-	"github.com/dgrijalva/jwt-go"
 )
 
 var (
@@ -185,7 +186,7 @@ func TestAuthJWT(t *testing.T) {
 	})
 
 	if err != nil {
-		t.Errorf("Received new token with wrong signature", err)
+		t.Errorf("Received new token with wrong signature %s", err)
 	}
 
 	if newToken.Claims["id"].(string) != "admin" ||
@@ -233,7 +234,7 @@ func TestAuthJWT(t *testing.T) {
 	})
 
 	if err != nil {
-		t.Errorf("Received refreshed token with wrong signature", err)
+		t.Errorf("Received refreshed token with wrong signature %s", err)
 	}
 
 	if refreshToken.Claims["id"].(string) != "admin" ||
@@ -280,7 +281,7 @@ func TestAuthJWTPayload(t *testing.T) {
 	})
 
 	if err != nil {
-		t.Errorf("Received new token with wrong signature", err)
+		t.Errorf("Received new token with wrong signature %s", err)
 	}
 
 	if newToken.Claims["testkey"].(string) != "testval" || newToken.Claims["exp"].(float64) == 0 {
@@ -312,7 +313,7 @@ func TestAuthJWTPayload(t *testing.T) {
 	})
 
 	if err != nil {
-		t.Errorf("Received refreshed token with wrong signature", err)
+		t.Errorf("Received refreshed token with wrong signature %s", err)
 	}
 
 	if refreshToken.Claims["testkey"].(string) != "testval" {
